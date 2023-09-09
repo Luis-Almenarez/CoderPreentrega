@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="./app.js" defer></script>
+    <title>Generator</title>
+  </head>
+  <body class="bg-slate-950">
+    <main class="main flex flex-col justify-center items-center min-h-screen text-center gap-8">
+      <div>
+        <h1 class="text-white text-3xl font-bold">Generador tablas de multiplicar</h1>
+        <h2 class="text-white text-3xl">Presione F12 para ver el ejercicio en la consola</h2>
+      </div>
+      <div>
+        <button onclick="comenzarEjercicio()" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">
+          Iniciar
+        </button>
+        <button onclick="reset()" class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 border-b-4 border-blue-700 hover:border-blue-500 rounded">Reiniciar</button>
+      </div>
+    </main>
+  </body>
+</html>
