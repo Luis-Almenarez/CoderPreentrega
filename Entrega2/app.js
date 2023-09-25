@@ -1,6 +1,9 @@
 let puntosUsuario = 0;
 let puntosComputadora = 0;
 
+let historialUsuaio = [];
+let historialComputadora = [];
+
 let iniciarJuego = () => {
   let opcionComputadora = Math.floor(Math.random() * 3);
   let opcionUsuario = prompt(`Elige:
@@ -37,4 +40,54 @@ let iniciarJuego = () => {
 
   console.log("La computadora ha usado " + opcionComputadora);
   console.log("Usuario ha utilizado " + usuarioTexto);
+
+  // Gana usuario
+  if (
+    (usuarioTexto === "Piedra" && opcionComputadora === "Tijeras") ||
+    (usuarioTexto === "Papel" && opcionComputadora === "Piedra") ||
+    (usuarioTexto === "Tijeras" && opcionComputadora === "Papel")
+  ) {
+    puntosUsuario++;
+    console.log("Haz ganado la ronda");
+
+    //Gana Computadora
+  } else if (
+    (opcionComputadora === "Piedra" && usuarioTexto === "Tijeras") ||
+    (opcionComputadora === "Papel" && usuarioTexto === "Piedra") ||
+    (opcionComputadora === "Tijeras" && usuarioTexto === "Papel")
+  ) {
+    puntosComputadora++;
+    console.log("La computadora ha ganado la ronda");
+  } else {
+    console.log("Empate");
+  }
+
+  if (puntosUsuario === 5) {
+    GanaUsuario();
+  } else if (puntosComputadora === 5) {
+    GanaComputadora();
+  }
+};
+
+//Función Gana Usuario
+
+let GanaUsuario = () => {
+  alert("Ganaste la partida");
+  historialUsuaio.push(`Gana usuario utilizando ${usuarioTexto}`);
+  alert(`
+    Haz ha ganado la partida:   
+
+    `);
+};
+
+//Función Gana Computadora
+
+let GanaComputadora = () => {
+  puntosComputadora++;
+  console.log("La computadora ha ganado la partida");
+  historialComputadora.push(`Gana usuario utilizando ${usuarioTexto}`);
+  alert(`
+    La computadora ha ganado la partida:   
+
+    `);
 };
