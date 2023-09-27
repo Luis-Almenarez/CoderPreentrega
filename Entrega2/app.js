@@ -5,13 +5,13 @@ let historialUsuaio = [];
 let historialComputadora = [];
 
 let iniciarJuego = () => {
-  let opcionComputadora = Math.floor(Math.random() * 3);
-  let opcionUsuario = prompt(`Elige:
-      1- Piedra
-      2- Papel
-      3- Tijeras `);
+  while (puntosUsuario !== 5 && puntosComputadora !== 5) {
+    let opcionComputadora = Math.floor(Math.random() * 3);
+    let opcionUsuario = prompt(`Elige:
+        1- Piedra
+        2- Papel
+        3- Tijeras `);
 
-  while ((puntosUsuario = 5 || (puntosComputadora = 5))) {
     let usuarioTexto;
 
     if (opcionUsuario !== null) {
@@ -26,8 +26,8 @@ let iniciarJuego = () => {
           usuarioTexto = "Tijeras";
         }
       } else {
-        alert("Opción no válida. Por favor, elige 1, 2 o 3.");
-        location.reload();
+        alert("La opción seleccionada no es válida. Por favor, elige 1, 2 o 3.");
+        continue;
       }
     }
 
@@ -50,7 +50,8 @@ let iniciarJuego = () => {
     ) {
       puntosUsuario++;
       console.log("Haz ganado la ronda");
-
+      historialUsuaio.push(`Ganaste utilizando ${usuarioTexto}`);
+      console.log("_____________________");
       //Gana Computadora
     } else if (
       (opcionComputadora === "Piedra" && usuarioTexto === "Tijeras") ||
@@ -59,8 +60,11 @@ let iniciarJuego = () => {
     ) {
       puntosComputadora++;
       console.log("La computadora ha ganado la ronda");
+      historialComputadora.push(`Utilizando ${opcionComputadora}`);
+      console.log("_____________________");
     } else {
       console.log("Empate");
+      console.log("---------------------");
     }
 
     if (puntosUsuario === 5) {
@@ -74,10 +78,8 @@ let iniciarJuego = () => {
 //Función Gana Usuario
 
 let GanaUsuario = () => {
-  alert("Ganaste la partida");
-  historialUsuaio.push(`Gana usuario utilizando ${usuarioTexto}`);
   alert(`
-    Haz ha ganado la partida:   
+    Has ha ganado la partida: ${historialUsuaio.join(", ")}
 
     `);
 };
@@ -85,11 +87,8 @@ let GanaUsuario = () => {
 //Función Gana Computadora
 
 let GanaComputadora = () => {
-  puntosComputadora++;
-  console.log("La computadora ha ganado la partida");
-  historialComputadora.push(`Gana usuario utilizando ${usuarioTexto}`);
   alert(`
-    La computadora ha ganado la partida:   
+    La computadora ha ganado la partida: ${historialComputadora.join(", ")}
 
     `);
 };
