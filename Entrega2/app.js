@@ -25,7 +25,7 @@ let iniciarJuego = () => {
     let opcionComputadora = Math.floor(Math.random() * 3);
     let opcionUsuario = prompt(`
     El primero en llegar a 5 puntos ganará la partida
-    
+
     Elige:
         1- Piedra
         2- Papel
@@ -68,14 +68,14 @@ let iniciarJuego = () => {
     function determinarResultado(jugadaUsuario, jugadaComputadora) {
       if (resultados[jugadaUsuario].ganaA.includes(jugadaComputadora)) {
         puntosUsuario++;
-        historialUsuaio.push(`Ronda ${contadorRondas}: Usuario utilizó ${usuarioTexto}, Computadora utilizó ${opcionComputadora}`);
+        historialUsuaio.push(`Ronda ${contadorRondas}: Usuario utilizó ${usuarioTexto}, Computadora utilizó ${opcionComputadora} - Gana: Usuario`);
         console.log(`Ganaste la ronda ${contadorRondas}`);
         console.log("Computadora: " + puntosComputadora);
         console.log("Usuario: " + puntosUsuario);
         console.log("_____________________");
       } else if (resultados[jugadaComputadora].ganaA.includes(jugadaUsuario)) {
         puntosComputadora++;
-        historialUsuaio.push(`Ronda ${contadorRondas}: Computadora utilizó ${opcionComputadora}, Usuario utilizó ${usuarioTexto}`);
+        historialUsuaio.push(`Ronda ${contadorRondas}: Computadora utilizó ${opcionComputadora}, Usuario utilizó ${usuarioTexto} - Gana: Computadora`);
         console.log(`La computadora gana la ronda ${contadorRondas}`);
         console.log("Computadora: " + puntosComputadora);
         console.log("Usuario: " + puntosUsuario);
@@ -98,16 +98,28 @@ let iniciarJuego = () => {
   }
 };
 
+/************************************************************/
+
+function buscarRondasGanadas(array, ganador) {
+  return array.filter((ronda) => ronda.includes(ganador));
+}
+
 // Función Gana Usuario
 let GanaUsuario = () => {
+  const rondasGanadasPorUsuario = buscarRondasGanadas(historialUsuaio, "Usuario");
   alert(`GANASTE LA PARTIDA:
 
-  Resumen rondas importantes: \n${historialUsuaio.join("\n")}`);
+  Resumen de partidas:
+  
+  ${rondasGanadasPorUsuario.join("\n")}`);
 };
 
 // Función Gana Computadora
 let GanaComputadora = () => {
+  const rondasGanadasPorComputadora = buscarRondasGanadas(historialUsuaio, "Computadora");
   alert(`HAS PERDIDO LA PARTIDA:
   
-  Resumen rondas importantes: \n${historialComputadora.join("\n")}`);
+  Resumen de partidas:
+
+  ${rondasGanadasPorComputadora.join("\n")}`);
 };
