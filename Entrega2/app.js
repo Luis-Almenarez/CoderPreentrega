@@ -3,16 +3,36 @@ let puntosComputadora = 0;
 
 let historialUsuaio = [];
 let historialComputadora = [];
+let contadorRondas = 0;
+
+const resultados = {
+  Piedra: {
+    nombre: "Piedra",
+    ganaA: ["Tijeras"],
+  },
+  Papel: {
+    nombre: "Papel",
+    ganaA: ["Piedra"],
+  },
+  Tijeras: {
+    nombre: "Tijeras",
+    ganaA: ["Papel"],
+  },
+};
 
 let iniciarJuego = () => {
   while (puntosUsuario !== 5 && puntosComputadora !== 5) {
     let opcionComputadora = Math.floor(Math.random() * 3);
-    let opcionUsuario = prompt(`Elige:
+    let opcionUsuario = prompt(`
+    El primero en llegar a 5 puntos ganará la partida
+    
+    Elige:
         1- Piedra
         2- Papel
         3- Tijeras `);
-
     let usuarioTexto;
+    contadorRondas++;
+    console.log("Ronda " + contadorRondas);
 
     if (opcionUsuario !== null) {
       const opcionUsuarioNum = parseInt(opcionUsuario);
@@ -42,30 +62,33 @@ let iniciarJuego = () => {
     console.log("La computadora ha usado " + opcionComputadora);
     console.log("Usuario ha utilizado " + usuarioTexto);
 
-    // Gana usuario
-    if (
-      (usuarioTexto === "Piedra" && opcionComputadora === "Tijeras") ||
-      (usuarioTexto === "Papel" && opcionComputadora === "Piedra") ||
-      (usuarioTexto === "Tijeras" && opcionComputadora === "Papel")
-    ) {
-      puntosUsuario++;
-      console.log("Haz ganado la ronda");
-      historialUsuaio.push(`Ganaste utilizando ${usuarioTexto}`);
-      console.log("_____________________");
-      //Gana Computadora
-    } else if (
-      (opcionComputadora === "Piedra" && usuarioTexto === "Tijeras") ||
-      (opcionComputadora === "Papel" && usuarioTexto === "Piedra") ||
-      (opcionComputadora === "Tijeras" && usuarioTexto === "Papel")
-    ) {
-      puntosComputadora++;
-      console.log("La computadora ha ganado la ronda");
-      historialComputadora.push(`Utilizando ${opcionComputadora}`);
-      console.log("_____________________");
-    } else {
-      console.log("Empate");
-      console.log("---------------------");
+    determinarResultado(usuarioTexto, opcionComputadora);
+    /************************************************************/
+
+    function determinarResultado(jugadaUsuario, jugadaComputadora) {
+      if (resultados[jugadaUsuario].ganaA.includes(jugadaComputadora)) {
+        puntosUsuario++;
+        historialUsuaio.push(`Ronda ${contadorRondas}: Usuario utilizó ${usuarioTexto}, Computadora utilizó ${opcionComputadora}`);
+        console.log(`Ganaste la ronda ${contadorRondas}`);
+        console.log("Computadora: " + puntosComputadora);
+        console.log("Usuario: " + puntosUsuario);
+        console.log("_____________________");
+      } else if (resultados[jugadaComputadora].ganaA.includes(jugadaUsuario)) {
+        puntosComputadora++;
+        historialUsuaio.push(`Ronda ${contadorRondas}: Computadora utilizó ${opcionComputadora}, Usuario utilizó ${usuarioTexto}`);
+        console.log(`La computadora gana la ronda ${contadorRondas}`);
+        console.log("Computadora: " + puntosComputadora);
+        console.log("Usuario: " + puntosUsuario);
+        console.log("_____________________");
+      } else {
+        console.log("Computadora: " + puntosComputadora);
+        console.log("Usuario: " + puntosUsuario);
+        console.log("EMPATE");
+        console.log("---------------------");
+      }
     }
+
+    /************************************************************/
 
     if (puntosUsuario === 5) {
       GanaUsuario();
@@ -75,20 +98,16 @@ let iniciarJuego = () => {
   }
 };
 
-//Función Gana Usuario
-
+// Función Gana Usuario
 let GanaUsuario = () => {
-  alert(`
-    Has ha ganado la partida: ${historialUsuaio.join(", ")}
+  alert(`GANASTE LA PARTIDA:
 
-    `);
+  Resumen rondas importantes: \n${historialUsuaio.join("\n")}`);
 };
 
-//Función Gana Computadora
-
+// Función Gana Computadora
 let GanaComputadora = () => {
-  alert(`
-    La computadora ha ganado la partida: ${historialComputadora.join(", ")}
-
-    `);
+  alert(`HAS PERDIDO LA PARTIDA:
+  
+  Resumen rondas importantes: \n${historialComputadora.join("\n")}`);
 };
